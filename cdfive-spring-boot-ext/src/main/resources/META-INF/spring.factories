@@ -1,0 +1,9 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.cdfive.springboot.config.ExtAutoConfig
+
+org.springframework.context.ApplicationListener=\
+com.cdfive.springboot.startup.ApplicationStartingEventListener,\
+com.cdfive.springboot.startup.ApplicationReadyEventListener
+
+org.springframework.boot.SpringBootExceptionReporter=\
+com.cdfive.springboot.startup.ApplicationStartupExceptionReporter

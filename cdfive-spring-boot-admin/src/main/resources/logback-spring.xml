@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <springProperty name="applicationName" source="spring.application.name" scope="context"/>
+
+    <property name="console.pattern" value="[%-5level] [%date{yyyy-MM-dd HH:mm:ss.SSS}] [%t] [%yellow(%X{_trace_id:-None})] %logger{10}:%line %X{method} - %msg%n"/>
+    <property name="file.pattern" value="[%-5level] [%date{yyyy-MM-dd HH:mm:ss.SSS}] [%t] [%X{_trace_id:-None}] %logger{10}:%line %X{method} - %msg%n"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${console.pattern}</pattern>
+        </encoder>
+    </appender>
+    <appender name="ASYNC_CONSOLE" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>5</discardingThreshold>
+        <queueSize>1024</queueSize>
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="CONSOLE"/>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>${file.pattern}</pattern>
+        </encoder>
+        <File>logs/log.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/log-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <maxHistory>3</maxHistory>
+            <totalSizeCap>500MB</totalSizeCap>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <MaxFileSize>50MB</MaxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+    <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>5</discardingThreshold>
+        <queueSize>1024</queueSize>
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="FILE"/>
+    </appender>
+
+
+<!--    <logger level="debug" name="org.springframework.web.servlet.DispatcherServlet" additivity="false">-->
+<!--        <appender-ref ref="ASYNC_CONSOLE"/>-->
+<!--    </logger>-->
+
+<!--    <logger level="trace" name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" additivity="false">-->
+<!--        <appender-ref ref="ASYNC_CONSOLE"/>-->
+<!--    </logger>-->
+
+<!--    <logger level="trace" name="org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod" additivity="false">-->
+<!--        <appender-ref ref="ASYNC_CONSOLE"/>-->
+<!--    </logger>-->
+
+    <root level="info">
+        <appender-ref ref="ASYNC_CONSOLE"/>
+        <appender-ref ref="ASYNC_FILE"/>
+    </root>
+</configuration>

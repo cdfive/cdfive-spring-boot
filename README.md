@@ -1,2 +1,2 @@
 # cdfive-spring-boot
-Learning project for better using spring-boot
+A learning project for better using spring-boot

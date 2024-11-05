@@ -1,0 +1,42 @@
+server:
+  port: 8080
+
+spring:
+  activemq:
+    broker-url: tcp://localhost:61616
+#    pool:
+#      enabled: true
+#      max-connections: 20
+    packages:
+      trust-all: true
+  data:
+    elasticsearch:
+      clusterName: elasticsearch
+      clusterNodes: localhost:9200
+      username: elastic
+      password: elastic
+      maxConnPerRoute: 2
+      maxConnTotal: 20
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7777/eureka
+    register-with-eureka: true
+    fetch-registry: true
+
+cdfive:
+  springboot:
+#    applicationAdminUrl: localhost:8080
+    sendMessageApplicationStarted: false
+    sendMessageRequestLog: false
+#    sendMessageRequestLogExculudeUris:
+#      - /csba/application/heartBeat
+
+global:
+  config:
+    name1: 048
+    num1: 007
+#    nums: 1,2,3
+#    items: aa,bb,cc
