@@ -1,4 +1,4 @@
-package com.cdfive.springboot.feign;
+package com.cdfive.springboot.feign.ext;
 
 import com.cdfive.springboot.util.RequestContextUtil;
 import feign.RequestInterceptor;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @ConditionalOnClass(RequestInterceptor.class)
 @Component
-public class TraceRequestInterceptor implements RequestInterceptor {
+public class ExtTraceRequestInterceptor implements RequestInterceptor {
 
     @Override
     public void apply(RequestTemplate template) {

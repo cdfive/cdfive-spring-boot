@@ -24,7 +24,6 @@ public class ExtRequestMappingHandlerMapping extends RequestMappingHandlerMappin
     protected void handlerMethodsInitialized(Map<RequestMappingInfo, HandlerMethod> handlerMethods) {
         super.handlerMethodsInitialized(handlerMethods);
 
-        int total = handlerMethods.size();
-        logger.info(total + " mappings in " + formatMappingName());
+        logger.info(handlerMethods.size() + " mappings in " + formatMappingName());
     }
 }

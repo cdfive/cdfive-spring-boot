@@ -29,7 +29,7 @@ import javax.annotation.PostConstruct;
 @ComponentScan({"com.cdfive.springboot"})
 @AutoConfigureBefore({WebMvcAutoConfiguration.class, DispatcherServletAutoConfiguration.class})
 @ConditionalOnProperty(name = "cdfive.springboot.enable", havingValue = "true", matchIfMissing = true)
-@EnableConfigurationProperties(ExtProperties.class)
+@EnableConfigurationProperties({ExtProperties.class})
 public class ExtAutoConfig {
 
     @PostConstruct
