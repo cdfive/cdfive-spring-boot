@@ -15,7 +15,7 @@ public class RequestContextUtil {
 
     public static String REQUEST_ATTR_START_TIME = "_start_time";
 
-    public static String REQUEST_ATTR_INVOKE_START= "_invoke_start";
+    public static String REQUEST_ATTR_INVOKE_START = "_invoke_start";
 
     public static String REQUEST_ATTR_REQ = "_req";
 
@@ -40,58 +40,125 @@ public class RequestContextUtil {
     }
 
     public static void setRequestAttrTraceId(String traceId) {
-        getRequest().setAttribute(REQUEST_ATTR_TRACE_ID, traceId);
+        HttpServletRequest request = getRequest();
+        if (request != null) {
+            request.setAttribute(REQUEST_ATTR_TRACE_ID, traceId);
+        }
     }
 
     public static String getRequestAttrTraceId() {
-        return (String) getRequest().getAttribute(REQUEST_ATTR_TRACE_ID);
+        HttpServletRequest request = getRequest();
+        if (request == null) {
+            return null;
+        }
+
+        return (String) request.getAttribute(REQUEST_ATTR_TRACE_ID);
     }
 
     public static void setRequestAttrStartTime(Long startTime) {
-        getRequest().setAttribute(REQUEST_ATTR_START_TIME, startTime);
+        HttpServletRequest request = getRequest();
+        if (request == null) {
+            return;
+        }
+
+        request.setAttribute(REQUEST_ATTR_START_TIME, startTime);
     }
 
     public static Long getRequestAttrStartTime() {
-        return (Long) getRequest().getAttribute(REQUEST_ATTR_START_TIME);
+        HttpServletRequest request = getRequest();
+        if (request == null) {
+            return null;
+        }
+
+        return (Long) request.getAttribute(REQUEST_ATTR_START_TIME);
     }
 
     public static void setRequestAttrInvokeStart(Boolean invokeStart) {
-        getRequest().setAttribute(REQUEST_ATTR_INVOKE_START, invokeStart);
+        HttpServletRequest request = getRequest();
+        if (request == null) {
+            return;
+        }
+
+        request.setAttribute(REQUEST_ATTR_INVOKE_START, invokeStart);
     }
 
     public static Boolean getRequestInvokeStart() {
-        return (Boolean) getRequest().getAttribute(REQUEST_ATTR_INVOKE_START);
+        HttpServletRequest request = getRequest();
+        if (request == null) {
+            return null;
+        }
+        return (Boolean) request.getAttribute(REQUEST_ATTR_INVOKE_START);
     }
 
     public static void setRequestAttrReq(Object req) {
-        getRequest().setAttribute(REQUEST_ATTR_REQ, req);
+        HttpServletRequest request = getRequest();
+        if (request == null) {
+            return;
+        }
+
+        request.setAttribute(REQUEST_ATTR_REQ, req);
     }
 
     public static Object getRequestAttrReq() {
-        return getRequest().getAttribute(REQUEST_ATTR_REQ);
+        HttpServletRequest request = getRequest();
+        if (request == null) {
+            return null;
+        }
+
+        return request.getAttribute(REQUEST_ATTR_REQ);
     }
 
     public static void setRequestAttrResp(Object resp) {
-        getRequest().setAttribute(REQUEST_ATTR_RESP, resp);
+        HttpServletRequest request = getRequest();
+        if (request == null) {
+            return;
+        }
+
+        request.setAttribute(REQUEST_ATTR_RESP, resp);
     }
 
     public static Object getRequestAttrResp() {
-        return getRequest().getAttribute(REQUEST_ATTR_RESP);
+        HttpServletRequest request = getRequest();
+        if (request == null) {
+            return null;
+        }
+
+        return request.getAttribute(REQUEST_ATTR_RESP);
     }
 
     public static void setRequestAttrTimeCostMs(Long timeCostMs) {
-        getRequest().setAttribute(REQUEST_ATTR_TIME_COST_MS, timeCostMs);
+        HttpServletRequest request = getRequest();
+        if (request == null) {
+            return;
+        }
+
+        request.setAttribute(REQUEST_ATTR_TIME_COST_MS, timeCostMs);
     }
 
     public static Long getRequestAttrTimeCostMs() {
-        return (Long) getRequest().getAttribute(REQUEST_ATTR_TIME_COST_MS);
+        HttpServletRequest request = getRequest();
+        if (request == null) {
+            return null;
+        }
+
+        return (Long) request.getAttribute(REQUEST_ATTR_TIME_COST_MS);
     }
 
     public static void setRequestAttrException(Exception exception) {
-        getRequest().setAttribute(REQUEST_ATTR_EXCEPTION, exception);
+        HttpServletRequest request = getRequest();
+        if (request == null) {
+            return;
+        }
+
+        request.setAttribute(REQUEST_ATTR_EXCEPTION, exception);
     }
 
     public static Exception getRequestAttrException() {
-        return (Exception) getRequest().getAttribute(REQUEST_ATTR_EXCEPTION);
+        HttpServletRequest request = getRequest();
+        if (request == null) {
+            return null;
+        }
+
+        return (Exception) request.getAttribute(REQUEST_ATTR_EXCEPTION);
     }
 }
