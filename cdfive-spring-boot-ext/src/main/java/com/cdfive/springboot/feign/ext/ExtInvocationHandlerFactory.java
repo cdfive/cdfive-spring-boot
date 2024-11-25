@@ -21,12 +21,12 @@ import java.util.stream.Collectors;
  */
 public class ExtInvocationHandlerFactory implements InvocationHandlerFactory {
 
-    private final InvocationHandlerFactory invocationHandlerFactory;
+    private final InvocationHandlerFactory delegate;
 
     private final ExtFeignClientProperties extFeignClientProperties;
 
-    public ExtInvocationHandlerFactory(InvocationHandlerFactory invocationHandlerFactory, ExtFeignClientProperties extFeignClientProperties) {
-        this.invocationHandlerFactory = invocationHandlerFactory;
+    public ExtInvocationHandlerFactory(InvocationHandlerFactory delegate, ExtFeignClientProperties extFeignClientProperties) {
+        this.delegate = delegate;
         this.extFeignClientProperties = extFeignClientProperties;
     }
 
@@ -34,12 +34,12 @@ public class ExtInvocationHandlerFactory implements InvocationHandlerFactory {
     public InvocationHandler create(Target target, Map<Method, MethodHandler> dispatch) {
         Map<String, List<ExtFeignClientProperties.FeignClientConfig>> configMap = extFeignClientProperties.getConfig();
         if (CollectionUtils.isEmpty(configMap)) {
-            return invocationHandlerFactory.create(target, dispatch);
+            return delegate.create(target, dispatch);
         }
 
         List<ExtFeignClientProperties.FeignClientConfig> targetConfigList = configMap.get(target.name());
         if (CollectionUtils.isEmpty(targetConfigList)) {
-            return invocationHandlerFactory.create(target, dispatch);
+            return delegate.create(target, dispatch);
         }
 
         Map<String, ExtFeignClientProperties.FeignClientConfig> targetConfigMap = targetConfigList.stream().collect(Collectors.toMap(o -> o.getPath(), o -> o, (o, n) -> n));
@@ -75,6 +75,6 @@ public class ExtInvocationHandlerFactory implements InvocationHandlerFactory {
             ReflectionUtils.setField(fieldOptions, methodHandler, newOptions);
         }
 
-        return invocationHandlerFactory.create(target, dispatch);
+        return delegate.create(target, dispatch);
     }
 }

@@ -4,6 +4,7 @@ import com.cdfive.springboot.common.JsonResult;
 import com.cdfive.springboot.util.JsonUtil;
 import com.cdfive.springboot.util.RequestContextUtil;
 import com.cdfive.springboot.webmvc.ext.ExtJsonMappingException;
+import com.netflix.hystrix.exception.HystrixRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -55,6 +56,14 @@ public class ControllerExceptionAdvice {
                     ExtJsonMappingException ejmEx = (ExtJsonMappingException) hmnrExCause;
                     return ejmEx.getMessage();
                 }
+            }
+        }
+
+        if (ex instanceof HystrixRuntimeException) {
+            HystrixRuntimeException hex = (HystrixRuntimeException) ex;
+            Throwable hexCause = hex.getCause();
+            if (hexCause != null) {
+                return hexCause.getMessage();
             }
         }
 
