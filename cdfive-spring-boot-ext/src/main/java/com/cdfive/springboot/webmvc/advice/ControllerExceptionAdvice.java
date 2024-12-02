@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.UndeclaredThrowableException;
 
 /**
  * @author cdfive
@@ -64,6 +65,14 @@ public class ControllerExceptionAdvice {
             Throwable hexCause = hex.getCause();
             if (hexCause != null) {
                 return hexCause.getMessage();
+            }
+        }
+
+        if (ex instanceof UndeclaredThrowableException) {
+            UndeclaredThrowableException utex = (UndeclaredThrowableException) ex;
+            Throwable undeclaredEx = utex.getUndeclaredThrowable();
+            if (undeclaredEx != null) {
+                return undeclaredEx.getMessage();
             }
         }
 
